@@ -4,5 +4,5 @@ I'm an avid reader of blogs and papers. However, I've noticed that I don't reall
 1. [Memory](chapters/memory.md)
 2. [JVM](chapters/jvm.md)
 3. [Concurrency](chapters/concurrency.md)
-4. [SOAP](chapters/soap.md)
+4. [JAX-WS](chapters/JAX-WS.md)
 5. [OIDC and OAuth2.0](chapters/authn_authz.md)
