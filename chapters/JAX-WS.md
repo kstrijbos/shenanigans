@@ -1,5 +1,5 @@
 # JAX-WS
-JAX-WS (Java API for XML Web Services) is an API used to create web services, particularly __SOAP__ services. It is part of the __JEE__ platform. 
+JAX-WS (Java API for XML Web Services) is an API used to create and consume web services, particularly __SOAP__ services. It is part of the __JEE__ platform. It uses annotations to describe the web service and consuming clients. 
 
 ## WSDL
 WSDL (__Web Services Description Language__) is an __XML-based__ language used to describe the functionality of a web service. The __JAX-WS__ specification defines a __Java-to-WSDL mapping__ which determines how WSDL operations are bound to Java methods.
@@ -160,6 +160,57 @@ An example binding could look like this:
 ```
 
 As you can see, our __binding__ element has an attribute named __type__. This type refers to the portType definition for which we are describing the requirements in our binding. The __soap:binding__ element specifies that the SOAP protocol is used. The __style__ attribute defines the style of our SOAP message format, which is __rpc__ in this case. The __transport__ attribute specifies the operation to be transmitted over HTTP. In the __operation__ element we bind the specific operation defined in the mapped __portType__ to the requirements. 
+
+## Server side
+The web service exposes one or more endpoints for the client to consume. A service can be published over __HTTP__, __SMTP__, ... and can use several message protocols such as __SOAP__ and __REST__. As mentioned, __JAX-WS__ is focused on the use of SOAP. JAX-WS takes care of the mapping of the return values of the exposed operations to __SOAP messages__. For example; our exposed operation called "getName" returns a String. JAX-WS will then convert this returned String to a SOAP message following the correct structure according to the specification __at runtime__.
+
+JAX-WS also takes care of the creation of the __WSDL file__ when you have defined your web service. It will automatically check the published endpoints and create a WSDL in accordance with your defined operations, mappings, types et cetera. This WSDL will also be published by your service for the clients to consume.
+
+![JAX-WS runtime](../img/jax_ws_runtime.gif)
+
+Examples of commonly used __JAX-WS annotations__ at the server side are:
+- WebService: this will lead to the service being published over the specified transfer protocol using SOAP
+
+```java
+@WebService
+public class PersonService {
+}
+```
+
+- WebMethod: expose a method as an operation of the published web service
+
+```java
+@WebService
+public class PersonService {
+    @WebMethod(operationName="get")
+    public String getName(String id) { ... };
+}
+```
+
+- WebParam: customize the mapping of a message part to a parameter
+
+```java
+@WebService
+public class PersonService {
+    @WebMethod(operationName="get")
+    public String getName(@WebParam(name="person_id")String id) { ... };
+}
+```
+
+- WebResult: customize the mapping of the return value to a WSDL message
+```java
+@WebService
+public class PersonService {
+    @WebMethod(operationName="get")
+    @WebResult(name="return")
+    public String getName(@WebParam(name="person_id")String id) { ... };
+}
+```
+
+## Client side
+JAX-WS provides an intuitive way to consume the web service by creating a __proxy__ at the client side. The client can view the proxy as the service and its operations, it doesn't need to care about the implementation at the background. This proxy can be created automatically using the WSDL file of the web service.
+
+![JAX-WS setup](../img/jax_ws_setup.jpg)
 
 ## SOAP
 SOAP (Simple Object Access Protocol) is a message protocol to enable distributed services to communicate. SOAP supports differents transfer protocols such HTTP and TCP. The data structure of SOAP is based on XML. Using XML makes the messages easily readable by humans and comes with the benefits of using a mature standard which is known by every developer. It also supports validation according to specified schema's. A disadvantage of using XML is the overhead in size.

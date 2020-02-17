@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Examples.iml" filepath="$PROJECT_DIR$/.idea/Examples.iml" />
       <module fileurl="file://$PROJECT_DIR$/concurrency/concurrency.iml" filepath="$PROJECT_DIR$/concurrency/concurrency.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jax-ws/jax-ws.iml" filepath="$PROJECT_DIR$/jax-ws/jax-ws.iml" />
       <module fileurl="file://$PROJECT_DIR$/memory/memory.iml" filepath="$PROJECT_DIR$/memory/memory.iml" />
     </modules>
   </component>
